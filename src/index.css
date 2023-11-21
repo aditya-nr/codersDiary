@@ -1,0 +1,25 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+}
+
+:root {
+    --container-bg: #F2F5F6;
+    --todo-outline: #2DD1F5;
+    --task-bg: #E6F1F4;
+    --weekDay-bg: #a2f1be9f;
+    --dsa-outline: #FF7918;
+    --delete-btn: #F44336;
+    --done-btn: #07BA59;
+}
+
+body {
+    position: relative;
+}
+
+#root,
+#popup {
+    position: absolute;
+}

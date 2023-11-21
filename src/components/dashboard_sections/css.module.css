@@ -1,0 +1,76 @@
+/* ----Cal */
+.cal_wrapper {
+    background-image: url(/assets/cal-empty.svg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 4rem;
+    height: 4rem;
+}
+
+.cal_mark {
+    border: 1px solid black;
+}
+
+/* ----CalendarSection */
+.calendar_wrapper {
+    overflow: auto;
+    scrollbar-width: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-auto-rows: 5rem;
+    justify-items: center;
+    align-items: center;
+}
+
+.calendar_wrapper::-webkit-scrollbar {
+    width: 0;
+    /* Set the width of the scrollbar */
+}
+
+
+
+/* ----AddEditSection */
+.wrapper {
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(69, 68, 68, 0.383);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.addEditContainer {
+    position: relative;
+    width: 50%;
+    max-width: 580px;
+}
+
+.ae_close {
+    position: absolute;
+    right: -10px;
+    top: -2px;
+}
+
+.ae_section {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin: 1rem;
+}
+
+.ae_action {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin: 1rem;
+    justify-content: space-between;
+}
+
+.ae_action_left {
+    display: flex;
+    position: relative;
+}
