@@ -4,7 +4,7 @@ import styles from './css.module.css'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { useForm } from 'react-hook-form';
 import { LoadingButton } from '@mui/lab';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const userNameRegEx = /^[a-zA-Z][a-zA-Z0-9\.\-]{1,8}[a-zA-Z0-9]$/;
 const passwordRegEx = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,30}$/;
@@ -121,6 +121,12 @@ const Register = () => {
                     Sign up
                 </LoadingButton>
             </form>
+            <div style={{ display: 'flex', margin: '1rem' }}>
+                <Typography variant='body2'>Already have an account? </Typography>
+                <Link to={'/login'}>
+                    <Typography variant='subtitle2' color='primary'>. Sign in</Typography>
+                </Link>
+            </div>
         </div>
     )
 

@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import styles from './css.module.css';
 import { Container } from '../shared'
-import { Button, FormControlLabel, Slider, Switch, TextField, ToggleButton, ToggleButtonGroup, Typography } from '@mui/material';
+import { Button, Slider, Switch, TextField, ToggleButton, ToggleButtonGroup, Typography } from '@mui/material';
 import { Close, Delete, Done, Edit, Save } from '@mui/icons-material';
 import { useForm } from 'react-hook-form';
 import { DevTool } from '@hookform/devtools';
 import { useDispatch, useSelector } from 'react-redux';
-import { addTask } from '../../context';
+import { addTask, removeTask } from '../../context';
 
 const AddEditSection = (props) => {
     const { tid, target, type, title, task, desc, priority, hidePortal } = props;
@@ -26,24 +26,16 @@ const AddEditSection = (props) => {
     const handleEditable = () => {
         setEditable(pre => !pre);
     }
-    const handleDelete = () => {
-
-    }
-    const handleSave = async (data) => {
-        data = {
-            ...data,
-            target,
-            type,
-            token: state.user.token,
+    const handleDelete = async () => {
+        let data = {
+            tid,
             pid: state.pid,
-            did: state.did
-        };
-        if (done)
-            data.target = "WORK";
-        console.log(data);
+            did: state.did,
+            token: state.user.token
+        }
         try {
             let res = await fetch("http://localhost:3000/api/task", {
-                method: "POST", // Specify the method as POST
+                method: "DELETE", // Specify the method as POST
                 headers: {
                     "Content-Type": "application/json", // Set the Content-Type header
                 },
@@ -55,10 +47,47 @@ const AddEditSection = (props) => {
             if (!res.success) {
                 return;
             }
+            dispatch(removeTask({ target: target, tid: tid }));
+            hidePortal();
+        } catch (error) {
+            console.log(`error :: \n`, error);
+        }
+    }
+    const handleSave = async (data) => {
+        data = {
+            ...data,
+            tid,
+            target,
+            type: _type,
+            token: state.user.token,
+            pid: state.pid,
+            did: state.did
+        };
+        let old_target = data.target;
+        if (done) {
+            data.target = _type == "DSA" ? "QUESTION" : "WORK";
+        }
+
+        let method = tid ? "PATCH" : "POST";
+        try {
+            let res = await fetch("http://localhost:3000/api/task", {
+                method, // Specify the method as POST
+                headers: {
+                    "Content-Type": "application/json", // Set the Content-Type header
+                },
+                body: JSON.stringify(data), // Convert data to JSON string
+            });
+            res = await res.json();
+
+            console.log(res);
+            if (!res.success) {
+                return;
+            }
+            if (tid != null)
+                dispatch(removeTask({ target: old_target, tid }));
             dispatch(addTask({ target: data.target, tid: res.tid }));
             hidePortal();
         } catch (error) {
-            setErr("No Internet !")
             console.log(`error :: \n`, error);
         }
     }
@@ -159,10 +188,10 @@ const AddEditSection = (props) => {
 
                         {/* buttons */}
                         <div className={styles.ae_action}>
-
                             <Button
                                 color='error'
                                 disabled={tid == null}
+                                onClick={handleDelete}
                             ><Delete /></Button>
                             <div className={styles.ae_action_left}>
                                 {

@@ -6,7 +6,7 @@ import { useForm } from 'react-hook-form';
 import { LoadingButton } from '@mui/lab';
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../context';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 
 const Login = () => {
@@ -93,6 +93,13 @@ const Login = () => {
                     Log in
                 </LoadingButton>
             </form>
+            <div style={{ display: 'flex', margin: '1rem' }}>
+                <Typography variant='body2'>New user? </Typography>
+                <Link to={'/register'}>
+                    <Typography variant='subtitle2' color='primary'>. Sign up</Typography>
+                </Link>
+            </div>
+
         </div>
     )
 

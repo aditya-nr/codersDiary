@@ -39,11 +39,29 @@ const dataSlice = createSlice({
                 state.profile.todos.push(tid);
             else if (target == "WORK")
                 state.day.work.push(tid);
-            else if (target == "QUESTIONS")
+            else if (target == "QUESTION")
                 state.day.dsa.push(tid);
-        }
+        },
+        removeTask: (state, action) => {
+            let { target, tid } = action.payload;
+
+            const removeFromArray = (arr, element) => {
+                const index = arr.indexOf(element);
+                if (index !== -1) {
+                    arr.splice(index, 1);
+                }
+            };
+
+            if (target === "TODO") {
+                removeFromArray(state.profile.todos, tid);
+            } else if (target === "WORK") {
+                removeFromArray(state.day.work, tid);
+            } else if (target === "QUESTION") {
+                removeFromArray(state.day.dsa, tid);
+            }
+        },
     }
 });
 
-export const { login, activate, setProfile, setDay, setDayIndex, addTask } = dataSlice.actions;
+export const { login, activate, setProfile, setDay, setDayIndex, addTask, removeTask } = dataSlice.actions;
 export const dataReducer = dataSlice.reducer;

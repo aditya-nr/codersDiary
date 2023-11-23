@@ -4,6 +4,12 @@
     height: 100%;
     background-color: var(--container-bg);
     padding: 0.5rem;
+    position: relative;
+    overflow: auto;
+}
+
+.container::-webkit-scrollbar {
+    width: 0;
 }
 
 /* task */

@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import { Container, Loading } from '../shared'
+import { Container, Loading, Task } from '../shared'
 import { useDispatch, useSelector } from 'react-redux'
 import { setDay } from '../../context';
+import { Button, Typography } from '@mui/material';
+import { AddSharp, TodaySharp } from '@mui/icons-material';
 
-const DaySection = ({ styleProp }) => {
+const DaySection = ({ styleProp, showPortal }) => {
     const state = useSelector(state => state.data);
     const [loading, setLoading] = useState(true);
+
     const dispatch = useDispatch();
 
     const fetchDay = async (day) => {
@@ -32,7 +35,6 @@ const DaySection = ({ styleProp }) => {
             console.log(`error :: \n`, error);
         }
     }
-
     useEffect(() => {
         fetchDay(state.dayIndex);
     }, [state.dayIndex])
@@ -42,7 +44,37 @@ const DaySection = ({ styleProp }) => {
 
     return (
         <Container {...{ styleProp }}>
-            Day :{state.dayIndex + 1}
+            <div> <TodaySharp />
+                <Typography variant='subtitle2'>{state.dayIndex + 1}</Typography>
+            </div>
+            <div>
+                <Typography variant='h6'>DSA</Typography>
+                {
+                    state.day.dsa.map((id) => <Task key={id} tid={id} {...{ showPortal }} />)
+                }
+                <Button
+                    variant='outlined'
+                    color='warning'
+                    startIcon={<AddSharp />}
+                    onClick={() => showPortal(null, "QUESTION", "DSA")}
+                >
+                    <Typography>DSA</Typography>
+                </Button>
+            </div>
+            <div>
+                <Typography variant='h6'>WORK</Typography>
+                {
+                    state.day.work.map((id) => <Task key={id} tid={id} {...{ showPortal }} />)
+                }
+                <Button
+                    variant='outlined'
+                    color='success'
+                    startIcon={<AddSharp />}
+                    onClick={() => showPortal(null, "WORK")}
+                >
+                    <Typography>WORK</Typography>
+                </Button>
+            </div>
         </Container>
     )
 }
