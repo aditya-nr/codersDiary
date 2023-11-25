@@ -11,7 +11,7 @@ const Task = ({ tid, showPortal }) => {
 
     const clickHandler = () => {
         let { target, type, title, task, desc, priority } = data;
-        showPortal(tid, target, type, title, task, desc, priority);
+        showPortal(tid, target, type, title, task, desc, priority, setData);
     }
 
     const fetchTask = async (tid) => {

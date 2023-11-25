@@ -14,8 +14,8 @@ const Dashboard = () => {
     const [display, setDisplay] = useState(false);
     const hidePortal = () => setDisplay(false);
     const [dataToPortal, setDataToPortal] = useState({});
-    const showPortal = (tid = null, target = "", type = "OTHERS", title = "", task = "", desc = "", priority = 5) => {
-        setDataToPortal({ tid, target, type, title, task, desc, priority })
+    const showPortal = (tid = null, target = "", type = "OTHERS", title = "", task = "", desc = "", priority = 5, setData = null) => {
+        setDataToPortal({ tid, target, type, title, task, desc, priority, setData })
         setDisplay(true);
     };
 

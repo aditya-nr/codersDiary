@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addTask, removeTask } from '../../context';
 
 const AddEditSection = (props) => {
-    const { tid, target, type, title, task, desc, priority, hidePortal } = props;
+    const { tid, target, type, title, task, desc, priority, hidePortal, setData } = props;
 
     const [_type, setType] = useState(type);
     const [editable, setEditable] = useState(tid == null);
@@ -83,8 +83,12 @@ const AddEditSection = (props) => {
             if (!res.success) {
                 return;
             }
-            if (tid != null)
+            // update task
+            // --remove old entry
+            if (tid != null) {
                 dispatch(removeTask({ target: old_target, tid }));
+                setData(data);
+            }
             dispatch(addTask({ target: data.target, tid: res.tid }));
             hidePortal();
         } catch (error) {
