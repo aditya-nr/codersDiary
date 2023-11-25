@@ -4,15 +4,21 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { setDayIndex } from '../../context'
 
-const Cal = ({ text }) => {
+const Cal = ({ day, currentDayIndex }) => {
     const dispatch = useDispatch();
-    const day = useSelector(state => state.data.dayIndex);
-    const setDay = () => dispatch(setDayIndex(text - 1))
+    const dayIndex = useSelector(state => state.data.dayIndex);
+    const setDay = () => dispatch(setDayIndex(day - 1))
     return (
-        <div className={`${styles.cal_wrapper} ${(day == text - 1) && styles.cal_mark}`}
-            onClick={setDay}
+        <div
+            className={
+                `${styles.cal_wrapper} 
+                ${(dayIndex == day - 1) && styles.cal_mark}
+                ${(currentDayIndex > (day - 1)) && styles.cal_done}
+                ${(currentDayIndex == (day - 1)) && styles.cal_currentDay}`
+            }
+            onClick={currentDayIndex < (day - 1) || setDay}
         >
-            <Typography>{text}</Typography>
+            <Typography>{day}</Typography>
         </div>
     )
 }
