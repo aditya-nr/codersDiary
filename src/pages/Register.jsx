@@ -5,6 +5,7 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { useForm } from 'react-hook-form';
 import { LoadingButton } from '@mui/lab';
 import { Link, useNavigate } from 'react-router-dom';
+import { BASE_URL } from '../config';
 
 const userNameRegEx = /^[a-zA-Z][a-zA-Z0-9\.\-]{1,8}[a-zA-Z0-9]$/;
 const passwordRegEx = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,30}$/;
@@ -22,7 +23,7 @@ const Register = () => {
 
     const onSubmit = async (data) => {
         try {
-            let res = await fetch("http://localhost:3000/api/register", {
+            let res = await fetch(`${BASE_URL}/register`, {
                 method: "POST", // Specify the method as POST
                 headers: {
                     "Content-Type": "application/json", // Set the Content-Type header

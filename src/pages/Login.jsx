@@ -7,6 +7,7 @@ import { LoadingButton } from '@mui/lab';
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../context';
 import { Link, useNavigate } from 'react-router-dom';
+import { BASE_URL } from '../config';
 
 
 const Login = () => {
@@ -22,7 +23,7 @@ const Login = () => {
     const navigate = useNavigate();
     const onSubmit = async (data) => {
         try {
-            let res = await fetch("http://localhost:3000/api/login", {
+            let res = await fetch(`${BASE_URL}/login`, {
                 method: "POST", // Specify the method as POST
                 headers: {
                     "Content-Type": "application/json", // Set the Content-Type header

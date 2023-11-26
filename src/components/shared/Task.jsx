@@ -3,6 +3,7 @@ import { WORK, QUESTION, TODO_OUTLINE, DSA_OUTLINE, DONE_BTN, PROJECT, DSA, THEO
 import { Typography } from '@mui/material';
 import { useSelector } from 'react-redux';
 import styles from './css.module.css';
+import { BASE_URL } from '../../config';
 
 const Task = ({ tid, showPortal }) => {
     const [loading, setLoading] = useState(true);
@@ -19,7 +20,7 @@ const Task = ({ tid, showPortal }) => {
             token: user.token
         }
         try {
-            let res = await fetch(`http://localhost:3000/api/task/${tid}`, {
+            let res = await fetch(`${BASE_URL}/task/${tid}`, {
                 method: "POST", // Specify the method as POST
                 headers: {
                     "Content-Type": "application/json", // Set the Content-Type header

@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setDay } from '../../context';
 import { Button, Typography } from '@mui/material';
 import { AddSharp, TodaySharp } from '@mui/icons-material';
+import { BASE_URL } from '../../config';
 
 const DaySection = ({ styleProp, showPortal }) => {
     const state = useSelector(state => state.data);
@@ -17,7 +18,7 @@ const DaySection = ({ styleProp, showPortal }) => {
             token: state.user.token
         };
         try {
-            let res = await fetch("http://localhost:3000/api/day", {
+            let res = await fetch(`${BASE_URL}/day`, {
                 method: "POST", // Specify the method as POST
                 headers: {
                     "Content-Type": "application/json", // Set the Content-Type header

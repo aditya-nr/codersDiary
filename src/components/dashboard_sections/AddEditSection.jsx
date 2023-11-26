@@ -7,6 +7,7 @@ import { useForm } from 'react-hook-form';
 import { DevTool } from '@hookform/devtools';
 import { useDispatch, useSelector } from 'react-redux';
 import { addTask, removeTask } from '../../context';
+import { BASE_URL } from '../../config';
 
 const AddEditSection = (props) => {
     const { tid, target, type, title, task, desc, priority, hidePortal, setData } = props;
@@ -70,7 +71,7 @@ const AddEditSection = (props) => {
 
         let method = tid ? "PATCH" : "POST";
         try {
-            let res = await fetch("http://localhost:3000/api/task", {
+            let res = await fetch(`${BASE_URL}/task`, {
                 method, // Specify the method as POST
                 headers: {
                     "Content-Type": "application/json", // Set the Content-Type header

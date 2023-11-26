@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { setDayIndex, setProfile } from '../context';
 import { useCurrentDayIndex } from '../hooks';
+import { BASE_URL } from '../config';
 
 
 const Dashboard = () => {
@@ -28,7 +29,7 @@ const Dashboard = () => {
             token: user.token
         };
         try {
-            let res = await fetch("http://localhost:3000/api/profile", {
+            let res = await fetch(`${BASE_URL}/profile`, {
                 method: "POST", // Specify the method as POST
                 headers: {
                     "Content-Type": "application/json", // Set the Content-Type header

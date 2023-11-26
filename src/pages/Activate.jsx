@@ -7,6 +7,7 @@ import { LoadingButton } from '@mui/lab';
 import { useDispatch, useSelector } from 'react-redux';
 import { activate } from '../context';
 import { useNavigate } from 'react-router-dom';
+import { BASE_URL } from '../config';
 
 const fullNameRegex = /^[a-zA-Z ]{3,20}$/
 const emailRegex = /\b[\w\.-]+@[\w\.-]+\.\w{2,4}\b/
@@ -21,7 +22,7 @@ const Activate = () => {
         data = { ...data, token: state.user?.token }
         console.log(data);
         try {
-            let res = await fetch(`http://localhost:3000/api/activate`, {
+            let res = await fetch(`${BASE_URL}/activate`, {
                 method: "POST", // Specify the method as POST
                 headers: {
                     "Content-Type": "application/json", // Set the Content-Type header
