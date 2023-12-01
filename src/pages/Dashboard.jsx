@@ -65,7 +65,7 @@ const Dashboard = () => {
             <div className={`${styles.wrapper} ${styles.grid_container}`}>
                 <CalendarSection styleProp={styles.calenderSection} />
                 <DaySection styleProp={styles.daySection} {...{ showPortal }} />
-                <ProjectSection styleProp={styles.projectSection} {...{ showPortal }} />
+                {/* <ProjectSection styleProp={styles.projectSection} {...{ showPortal }} /> */}
                 <TodoSection styleProp={styles.todoSection} {...{ showPortal }} />
                 <ProfileSection styleProp={styles.profileSection} />
             </div>

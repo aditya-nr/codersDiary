@@ -45,9 +45,7 @@ const DaySection = ({ styleProp, showPortal }) => {
 
     return (
         <Container {...{ styleProp }}>
-            <div> <TodaySharp />
-                <Typography variant='subtitle2'>{state.dayIndex + 1}</Typography>
-            </div>
+
             <div>
                 <Typography variant='h6'>DSA</Typography>
                 {

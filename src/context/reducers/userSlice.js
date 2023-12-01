@@ -16,6 +16,8 @@ const dataSlice = createSlice({
         login: (state, action) => {
             state.isLoggedIn = true;
             state.user = action.payload.user;
+            // set data to local storage
+            localStorage.setItem('user', JSON.stringify(action.payload.user));
         },
         activate: (state, action) => {
             state.user.activated = true;
@@ -60,8 +62,17 @@ const dataSlice = createSlice({
                 removeFromArray(state.day.dsa, tid);
             }
         },
+        logout: (state, action) => {
+            state.isLoggedIn = false;
+            state.pid = '';
+            state.did = '';
+            state.dayIndex = null;
+            state.user = null;
+            state.profile = null;
+            state.day = null;
+        }
     }
 });
 
-export const { login, activate, setProfile, setDay, setDayIndex, addTask, removeTask } = dataSlice.actions;
+export const { login, activate, setProfile, setDay, setDayIndex, addTask, removeTask, logout } = dataSlice.actions;
 export const dataReducer = dataSlice.reducer;

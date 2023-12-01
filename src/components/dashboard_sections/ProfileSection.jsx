@@ -1,16 +1,68 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import styles from './css.module.css';
+import { svgCal, svgLeetcode, svgProfile } from '../../assets'
 import { Container } from '../shared'
-import { SvgIcon } from '@mui/material'
+import { useSelector } from 'react-redux'
+import { Button, Icon, IconButton, Typography } from '@mui/material'
+import { AccountCircle } from '@mui/icons-material';
+import ProfilePortal from './ProfilePortal';
+import { createPortal } from 'react-dom';
 
 const ProfileSection = ({ styleProp }) => {
+    const { profile_wrapper, flex } = styles;
+    const { dayIndex, profile: { months }, user: { token } } = useSelector(s => s.data);
+    const [lc, setLeetcode] = useState(null);
+    const [display, setDisplay] = useState(false);
+
+    const fetchLc = async () => {
+        try {
+            let res = await fetch(`https://leetcode-stats-api.herokuapp.com/aditya-nr`);
+            res = await res.json();
+            let { easySolved, mediumSolved, hardSolved } = res
+            setLeetcode({
+                easy: easySolved,
+                medium: mediumSolved,
+                hard: hardSolved
+            })
+        } catch (error) {
+
+        }
+    }
+    useEffect(() => {
+        fetchLc();
+    }, [])
+
+
     return (
-        <Container {...{ styleProp }}>
-            <div>
-                <SvgIcon>
-                    <svg width="2rem" height="2rem" viewBox="0 0 1024 1024" class="icon" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M106.666667 810.666667V298.666667h810.666666v512c0 46.933333-38.4 85.333333-85.333333 85.333333H192c-46.933333 0-85.333333-38.4-85.333333-85.333333z" fill="#CFD8DC" /><path d="M917.333333 213.333333v128H106.666667v-128c0-46.933333 38.4-85.333333 85.333333-85.333333h640c46.933333 0 85.333333 38.4 85.333333 85.333333z" fill="#F44336" /><path d="M704 213.333333m-64 0a64 64 0 1 0 128 0 64 64 0 1 0-128 0Z" fill="#B71C1C" /><path d="M320 213.333333m-64 0a64 64 0 1 0 128 0 64 64 0 1 0-128 0Z" fill="#B71C1C" /><path d="M704 64c-23.466667 0-42.666667 19.2-42.666667 42.666667v106.666666c0 23.466667 19.2 42.666667 42.666667 42.666667s42.666667-19.2 42.666667-42.666667V106.666667c0-23.466667-19.2-42.666667-42.666667-42.666667zM320 64c-23.466667 0-42.666667 19.2-42.666667 42.666667v106.666666c0 23.466667 19.2 42.666667 42.666667 42.666667s42.666667-19.2 42.666667-42.666667V106.666667c0-23.466667-19.2-42.666667-42.666667-42.666667z" fill="#B0BEC5" /><path d="M277.333333 426.666667h85.333334v85.333333h-85.333334zM405.333333 426.666667h85.333334v85.333333h-85.333334zM533.333333 426.666667h85.333334v85.333333h-85.333334zM661.333333 426.666667h85.333334v85.333333h-85.333334zM277.333333 554.666667h85.333334v85.333333h-85.333334zM405.333333 554.666667h85.333334v85.333333h-85.333334zM533.333333 554.666667h85.333334v85.333333h-85.333334zM661.333333 554.666667h85.333334v85.333333h-85.333334zM277.333333 682.666667h85.333334v85.333333h-85.333334zM405.333333 682.666667h85.333334v85.333333h-85.333334zM533.333333 682.666667h85.333334v85.333333h-85.333334zM661.333333 682.666667h85.333334v85.333333h-85.333334z" fill="#90A4AE" /></svg>
-                </SvgIcon>
-            </div>
-        </Container>
+        <>
+            <Container {...{ styleProp: `${styleProp} ${profile_wrapper}` }}>
+                <div className={flex}>
+                    <img src={svgCal} height={'50px'} />
+                    <Typography>{dayIndex + 1}/{months * 30}</Typography>
+                </div>
+                <div className={flex}>
+                    <img src={svgLeetcode} height={'50px'} />
+                    {
+                        lc &&
+                        <Typography>{lc.easy}/{lc.medium}/{lc.hard}</Typography>
+                    }
+                </div>
+                <div>
+                    <Button
+                        onClick={() => setDisplay(true)}
+                    >
+                        <img src={svgProfile} />
+                    </Button>
+                </div>
+            </Container>
+            {
+                display && createPortal(
+                    <ProfilePortal close={() => { setDisplay(false) }} token={token} />
+                    ,
+                    document.getElementById('popup')
+                )
+            }
+        </>
     )
 }
 

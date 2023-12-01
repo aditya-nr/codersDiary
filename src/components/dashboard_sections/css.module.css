@@ -1,3 +1,36 @@
+/* profile */
+.profile_wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.flex {
+    display: flex;
+    gap: 0.2rem;
+    align-items: center;
+}
+
+/* profile Portal */
+.pp_wrapper {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+}
+
+.pp_container {
+    padding: 1rem;
+    display: flex;
+    width: 10rem;
+    justify-content: center;
+    background-color: white;
+    border-radius: 10px;
+    position: absolute;
+    right: 1rem;
+    top: 4rem;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
 /* ----Cal */
 .cal_wrapper {
     background-image: url(/assets/cal-empty.svg);
@@ -92,4 +125,11 @@
     background-repeat: no-repeat;
     background-position: center;
 
+}
+
+/* todo */
+.todo_add_btn {
+    position: absolute;
+    bottom: 1rem;
+    left: 1rem;
 }
