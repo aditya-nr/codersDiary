@@ -35,7 +35,7 @@ const AddEditSection = (props) => {
             token: state.user.token
         }
         try {
-            let res = await fetch("http://localhost:3000/api/task", {
+            let res = await fetch(`${BASE_URL}/task`, {
                 method: "DELETE", // Specify the method as POST
                 headers: {
                     "Content-Type": "application/json", // Set the Content-Type header
