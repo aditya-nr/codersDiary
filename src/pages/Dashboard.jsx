@@ -1,6 +1,6 @@
 import React, { useEffect, useLayoutEffect, useState } from 'react'
 import styles from './css.module.css'
-import { AddEditSection, CalendarSection, DaySection, ProfileSection, ProjectSection, TodoSection } from '../components/dashboard_sections'
+import { AddEditSection, CalendarSection, DaySection, DaySection2, ProfileSection, ProjectSection, TodoSection } from '../components/dashboard_sections'
 import { createPortal } from 'react-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -65,7 +65,7 @@ const Dashboard = () => {
             <div className={`${styles.wrapper} ${styles.grid_container}`}>
                 <CalendarSection styleProp={styles.calenderSection} />
                 <DaySection styleProp={styles.daySection} {...{ showPortal }} />
-                {/* <ProjectSection styleProp={styles.projectSection} {...{ showPortal }} /> */}
+                <DaySection2 styleProp={styles.projectSection} />
                 <TodoSection styleProp={styles.todoSection} {...{ showPortal }} />
                 <ProfileSection styleProp={styles.profileSection} />
             </div>
